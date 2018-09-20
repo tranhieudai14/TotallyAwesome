@@ -131,6 +131,7 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    // Keep ratio 1:1
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.size.width
     }
