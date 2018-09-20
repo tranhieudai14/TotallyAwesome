@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		238AC74C21535FB00042E36B /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AC74B21535FB00042E36B /* CellData.swift */; };
 		23E66CC7215256710092B9DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E66CC6215256710092B9DE /* AppDelegate.swift */; };
 		23E66CCC215256710092B9DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23E66CCA215256710092B9DE /* Main.storyboard */; };
 		23E66CCE215256720092B9DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23E66CCD215256720092B9DE /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		238AC74B21535FB00042E36B /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		23E66CC3215256710092B9DE /* TotallyAwesome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TotallyAwesome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E66CC6215256710092B9DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23E66CCB215256710092B9DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,10 +60,11 @@
 		23E66CC5215256710092B9DE /* TotallyAwesome */ = {
 			isa = PBXGroup;
 			children = (
+				23E66CC6215256710092B9DE /* AppDelegate.swift */,
 				23E66CDE215296600092B9DE /* TableViewCell.xib */,
 				23E66CE0215298260092B9DE /* TableViewCell.swift */,
-				23E66CC6215256710092B9DE /* AppDelegate.swift */,
 				23E66CD82152585E0092B9DE /* TableViewController.swift */,
+				238AC74B21535FB00042E36B /* CellData.swift */,
 				23E66CCA215256710092B9DE /* Main.storyboard */,
 				23E66CCD215256720092B9DE /* Assets.xcassets */,
 				23E66CCF215256720092B9DE /* LaunchScreen.storyboard */,
@@ -145,6 +148,7 @@
 				23E66CE1215298260092B9DE /* TableViewCell.swift in Sources */,
 				23E66CD92152585E0092B9DE /* TableViewController.swift in Sources */,
 				23E66CC7215256710092B9DE /* AppDelegate.swift in Sources */,
+				238AC74C21535FB00042E36B /* CellData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

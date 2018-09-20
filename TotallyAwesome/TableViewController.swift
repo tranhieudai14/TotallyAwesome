@@ -8,25 +8,13 @@
 
 import UIKit
 
-class CellData {
-    var id: String
-    var image: UIImage
+class TableViewController: UITableViewController {
     
-    init(id: String, image: UIImage) {
-        self.id = id
-        self.image = image
-    }
-}
-
-protocol TableViewProtocol: class {
-    func passId(id:String)
-}
-
-class TableViewController: UITableViewController, TableViewProtocol {
-    
+    // Store all cell data in our tableView
     var cells: [CellData] = [CellData]()
+    
+    // Used to create url correctly
     var id: String? = nil
-    var delegate: TableViewProtocol?
     
     let cellId = "cellId"
     
@@ -38,17 +26,13 @@ class TableViewController: UITableViewController, TableViewProtocol {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(loadingIndicator)
-        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        setupIndicator()
         
-        let cellXib = UINib.init(nibName: "TableViewCell", bundle: nil)
-        tableView.register(cellXib, forCellReuseIdentifier: cellId)
-        tableView.separatorStyle = .none
+        setupTableView()
         
         navigationItem.title = "Feeds"
         
@@ -56,11 +40,7 @@ class TableViewController: UITableViewController, TableViewProtocol {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         
-        var url = URL(string: "https://api.popjam.com/v2/users/05fea6f3-4c9b-4c77-b321-8734623662ec/homeFeed")!
-        if let id = id {
-            let stringURL = "https://api.popjam.com/v2/users/05fea6f3-4c9b-4c77-b321-8734623662ec/homeFeed?lastId=" + id
-            url = URL(string: stringURL)!
-        }
+        let url = createURL()
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if (error != nil) {
@@ -75,13 +55,17 @@ class TableViewController: UITableViewController, TableViewProtocol {
             guard let feedItems = json["feedItems"] as? [[String: Any]] else { return }
             for i in 0..<feedItems.count {
                 let item = feedItems[i]
+                
                 guard let sourceImg = item["imageSrc"] as? String else {
+                    // Check if we are on the very last item
                     if i == feedItems.count - 1 {
                         DispatchQueue.main.async {
                             self.loadingIndicator.stopAnimating()
                             self.tableView.reloadData()
                         }
                     }
+                    
+                    // If sourceImage == null then continue
                     continue
                 }
                 guard let id = item["id"] as? String else {
@@ -111,6 +95,27 @@ class TableViewController: UITableViewController, TableViewProtocol {
             }
 
         }.resume()
+    }
+    
+    fileprivate func setupIndicator() {
+        view.addSubview(loadingIndicator)
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupTableView() {
+        let cellXib = UINib.init(nibName: "TableViewCell", bundle: nil)
+        tableView.register(cellXib, forCellReuseIdentifier: cellId)
+        tableView.separatorStyle = .none
+    }
+    
+    fileprivate func createURL() -> URL {
+        var url = URL(string: "https://api.popjam.com/v2/users/05fea6f3-4c9b-4c77-b321-8734623662ec/homeFeed")!
+        if let id = id {
+            let stringURL = "https://api.popjam.com/v2/users/05fea6f3-4c9b-4c77-b321-8734623662ec/homeFeed?lastId=" + id
+            url = URL(string: stringURL)!
+        }
+        return url
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
